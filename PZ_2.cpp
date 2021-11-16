@@ -133,11 +133,34 @@ public:
         return 0;
     }
 
-
-    Mass& operator=(const Mass& mass);
+    
+    //Оператор присваивания
+    template <class T>
+    Mass& operator =(const Mass<T>& mass)
+    {
+        if (this == &mass)
+        {
+            return *this;
+        }
+        if(a)
+        {
+            delete[] a;
+        }
+        size = mass.size;
+        a = new T[mass.size];
+        for (int i = 0; i < mass.size; i++)
+        {
+            a[i] = mass.a[i];
+        }
+        return *this;
+    }
+    
+    //Оператор вывода
     template <class T>
     friend ostream& operator <<(ostream out, Mass<T>& mass);
 };
+
+    //Отдельный сеттер
     template <>
     void Mass<int>::set(int value, int position)
     {
@@ -157,10 +180,17 @@ public:
             throw out_of_range("Out of range!");
         }
     }
-    template <class T>
-    Mass<T>& Mass<T>::operator=(const Mass& mass)
-    {
 
+    //Оператор вывода
+    template <class T>
+    ostream& operator <<(ostream out, Mass<T>& mass)
+    {
+        for (int i = 0; i < mass.size; i++)
+        {
+            out << mass.a[i] << "   ";
+        }
+        out << endl;
+        return out;
     }
 
 
@@ -171,14 +201,14 @@ int main()
         Mass<int> a(2);
         Mass<int> a1(2);
         Mass<int> a2(2);
+              
 
         a.show();
         a1.show();
         a2.show();
         a1.AdditionEnd(1);
         a1.sum(a2);
-        a1.raz(a2);
-
+        a1.raz(a2);                
     }
     catch (bad_alloc& e)
     {
