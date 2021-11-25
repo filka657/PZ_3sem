@@ -1,7 +1,6 @@
-﻿
+
 #include <iostream>
 #include <string>
-#include <vector>
 #include <map>
 #include <algorithm>
 using namespace std;
@@ -20,7 +19,7 @@ int main()
         if (str[j] == ' ' || str[j] == '/0')
         {
             tmp = str.substr(i, j - i);
-            
+            //cout << tmp << endl;
             i = j + 1;
             if (!tmp.empty())
             {
@@ -35,14 +34,9 @@ int main()
             }
         }
     }
-    vector<pair<unsigned int, string>>vect;
-
-    for (pair<string, unsigned int> a : dict)
-        vect.push_back(make_pair(a.second, a.first));
-
-    sort(vect.begin(), vect.end());
-    cout << "Список:\n" << endl;
-    for (int i = 0; i < vect.size(); i++)
-        cout << vect[vect.size() - i - 1].second << ": " << vect[vect.size() - i - 1].first << endl;
+    for (auto it = dict.begin(); it != dict.end(); it++)
+    {
+        cout << (*it).first << ": " << (*it).second << endl;
+    }
     return 0;
 }
