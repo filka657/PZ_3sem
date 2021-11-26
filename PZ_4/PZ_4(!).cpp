@@ -19,7 +19,6 @@ int main()
         if (str[j] == ' ' || str[j] == '/0')
         {
             tmp = str.substr(i, j - i);
-            //cout << tmp << endl;
             i = j + 1;
             if (!tmp.empty())
             {
